@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var csv = require( "fast-csv" );
-var csv1 = require("csv");
+var path = require('path')
 var request = require('request');
 
 //Ajax funcction will call this function in node js /getCurrencyData is the route
@@ -30,5 +30,12 @@ app.get('/getCurrencyData', function(req, res) {
     });;
     
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/test', function(req, res) {
+    res.sendFile('/view.html', {root: __dirname })
+});
+
 //Port on which this application will run
 app.listen(1337);
