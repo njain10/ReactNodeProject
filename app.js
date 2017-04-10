@@ -33,7 +33,7 @@ app.get('/getCurrencyData', function(req, res) {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/test', function(req, res) {
+app.get('/', function(req, res) {
     res.sendFile('/view.html', {root: __dirname })
 });
 
