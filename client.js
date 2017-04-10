@@ -1,5 +1,6 @@
 var curr = [];
         var Note = React.createClass({
+            //Ajax code which makes call to the node js function
             edit() {
                 $.ajax({
                     type: 'GET',
@@ -8,19 +9,22 @@ var curr = [];
                     success: function (data){
                     for (var j = 0; j < data.length - 1; j++){
                         var innerData = data[j];
-                        if (curr[j] < innerData[2]){
+                        // comparing old value with the new value recieved
+                        if (curr[j] < (innerData[1]+innerData[2])){
                             document.getElementById('iconNewText' + j).className = "fa fa-arrow-up";
                         }
                         else {
                             document.getElementById('iconNewText' + j).className = "fa fa-arrow-down";
                         }
-                        curr.splice(j,1,innerData[2]);
+                        //Adding the new value in the place of old one
+                        curr.splice(j,1,(innerData[1]+innerData[2]));
                         var currencyRate = innerData[1]+innerData[2];
                         document.getElementById('newText' + j).innerHTML = innerData[0] + "    " + currencyRate + "   ";
                     }
                     }
                 });
             },
+            //Setting interval of 7 seconds as stated in the requirement
              componentDidMount: function(){
                 this.interval = setInterval(this.edit, 7 * 1000);
             },
